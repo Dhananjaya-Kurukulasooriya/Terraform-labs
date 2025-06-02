@@ -1,0 +1,136 @@
+{
+  "properties": {
+    "displayName": "Allowed Resource Types, VM Region and Size Restrictions (Complete)",
+    "policyType": "Custom",
+    "mode": "All",
+    "description": "This policy enforces that only Resource Groups, Linux Virtual Machines, Public IP Addresses, Virtual Networks, Subnets, Network Interfaces, and Disks can be created. Linux VMs are further restricted to the 'East US' region and allowed sizes of 'Standard_B2ms' and 'Standard_B2s'.",
+    "parameters": {
+      "allowedVMLocations": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed VM Locations",
+          "description": "The list of allowed locations for virtual machines.",
+          "strongType": "location"
+        },
+        "defaultValue": [
+          "eastus"
+        ]
+      },
+      "allowedVMSizeSKUs": {
+        "type": "Array",
+        "metadata": {
+          "displayName": "Allowed VM Size SKUs",
+          "description": "The list of allowed virtual machine size SKUs for Linux VMs.",
+          "strongType": "vmSize"
+        },
+        "defaultValue": [
+          "Standard_B2ms",
+          "Standard_B2s"
+        ]
+      }
+    },
+    "policyRule": {
+      "if": {
+        "allOf": [
+          {
+            "not": {
+              "anyOf": [
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Resources/resourceGroups"
+                },
+                {
+                  "allOf": [
+                    {
+                      "field": "type",
+                      "equals": "Microsoft.Compute/virtualMachines"
+                    },
+                    {
+                      "anyOf": [
+                        {
+                          "field": "Microsoft.Compute/virtualMachines/storageProfile.imageReference.offer",
+                          "like": "Ubuntu*"
+                        },
+                        {
+                          "field": "Microsoft.Compute/virtualMachines/storageProfile.imageReference.offer",
+                          "like": "RHEL*"
+                        },
+                        {
+                          "field": "Microsoft.Compute/virtualMachines/storageProfile.imageReference.offer",
+                          "like": "Debian*"
+                        },
+                        {
+                          "field": "Microsoft.Compute/virtualMachines/storageProfile.imageReference.offer",
+                          "like": "CentOS*"
+                        },
+                        {
+                          "field": "Microsoft.Compute/virtualMachines/storageProfile.imageReference.offer",
+                          "like": "SLES*"
+                        },
+                        {
+                          "field": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.osType",
+                          "equals": "Linux"
+                        }
+                      ]
+                    },
+                    {
+                      "field": "location",
+                      "in": "[parameters('allowedVMLocations')]"
+                    },
+                    {
+                      "field": "Microsoft.Compute/virtualMachines/sku.name",
+                      "in": "[parameters('allowedVMSizeSKUs')]"
+                    }
+                  ]
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Network/publicIPAddresses"
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Network/virtualNetworks"
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Network/virtualNetworks/subnets"
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Network/networkInterfaces"
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Compute/disks"
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Network/networkSecurityGroups"
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Network/routeTables"
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Network/virtualNetworkGateways"
+                },
+                {
+                  "field": "type",
+                  "equals": "Microsoft.Network/connections"
+                }
+              ]
+            }
+          },
+          {
+            "field": "type",
+            "notEquals": "Microsoft.Resources/subscriptions/resourceGroups"
+          }
+        ]
+      },
+      "then": {
+        "effect": "deny"
+      }
+    }
+  }
+}
