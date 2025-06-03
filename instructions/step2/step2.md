@@ -1,17 +1,8 @@
 ## 2. ⚙️ Terraform Files Creation
 ### 2.1 💻 Create the Compute Module
 
-Navigate to the modules directory and create the Compute module files:
-
+1. Open `main.tf` file and add the following code (terraform-module/modules/compute/main.tf):
 ```bash
-#  Create compute module files
-touch modules/compute/main.tf \
-modules/compute/outputs.tf \
-modules/compute/variables.tf \
-```
-#### 2.1.1 📝 Module Main Configuration (modules/compute/main.tf)
-
-```text
 # ========================================
 #  Compute Module (modules/compute/main.tf)
 # ========================================
@@ -76,9 +67,12 @@ resource "azurerm_linux_virtual_machine" "vm" {
   tags = var.common_tags
 }
 ```
+![01](./assets/screenshot2.png)
 
-#### 2.1.2 Module variables Configuration (modules/compute/variables.tf)
-```text
+In this Terraform Configuration file contains the required LEGO frame to build VMs for the Hello-World Multi-tier web application.
+
+2. Open the `variables.tf`  Configuration file and add the following code (modules/compute/variables.tf):
+``` bash
 
 variable "vm_name" {
   description = "Name of the virtual machine"
@@ -143,8 +137,12 @@ variable "common_tags" {
 }
 
 ```
-#### 📤2.1.3 Module Outputs Configuration (modules/compute/outputs.tf)
-``` text
+![02](./assets/screenshot3.png)
+
+This file is used to declare input variables for your Terraform configuration. It defines the names, types, default values (optional), and descriptions of the parameters you want to be able to customize when you run your Terraform code.
+
+1. Open the `outputs.tf ` Configuration file and add the following code (modules/compute/outputs.tf):
+``` bash
 
 # ========================================
 # Compute Module Outputs (modules/compute/outputs.tf)
@@ -171,10 +169,11 @@ output "vm_name" {
 }
 
 ```
+![03](./assets/screenshot4.png)
 ---
 
 ✅ Once you complete all the 3 steps your current working directory should look like this.
 
 ![compute Module](./assets/screenshot1.png)
 
-🎉 Now we have the LEGO block to create Compute resources in both Dev and Prd environments.
+🎉 Now we have the LEGO block to create all required Compute resources in Dev and environments.

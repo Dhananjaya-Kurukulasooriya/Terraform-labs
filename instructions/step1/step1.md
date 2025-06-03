@@ -9,16 +9,16 @@ Imagine you're building a simple "Hello World" app with two parts: a frontend VM
 
 You'd have:
 
-1. 📦 A network module to lay down your foundational network stuff like VPCs and subnets.
+1. 📦 A network module to lay down your foundational network stuff like VNets and subnets.
 2. 💻 A compute module that knows how to fire up a VM, letting you customize its size and even tell it what little "Hello World" script to run when it starts.
 
-Now, for your dev and prod environments, you simply call these modules, tweaking things like VM sizes or network rules as needed. It's a super friendly way to see how modules keep your infrastructure neat, repeatable, and easy to manage, even for multi-tier applications! ✅
+Now, for your dev environments, you simply call these modules, tweaking things like VM sizes or network rules as needed. It's a super friendly way to see how modules keep your infrastructure neat, repeatable, and easy to manage, even for multi-tier applications! ✅
 
 ## 1.📁 Project Structure Setup
 
-### 1.1 🏗️ Create Project Directory
+### 1.1 🏗️ Create Project Directory Hierarchy.
 
-Create a new directory for your Terraform Azure VM project:
+In the terminal run the following command to create a new directory structure for your Terraform Azure VM project:
 
 ```bash
 #  Directory and file setup
@@ -35,41 +35,18 @@ modules/network/outputs.tf \
 modules/network/variables.tf \
 environments/dev/main.tf \
 environments/dev/outputs.tf \
-environments/dev/variables.tf \
+environments/dev/variables.tf 
 
 touch \
 environments/dev/scripts/backend-startup.sh \
-environments/dev/scripts/frontend-startup.sh \
+environments/dev/scripts/frontend-startup.sh 
 ```
 
-### 1.2 🗂️ Recommended Directory Structure
+![01](./assets/screenshot1.png)
 
-Organize your files using this structure:
 
-```bash
-#  Directory tree
-terraform-module
-├── modules/
-│   ├── compute/
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   └── network/
-│       ├── main.tf
-│       ├── outputs.tf
-│       └── variables.tf
-└── environments/
-    ├── dev/
-    │   ├── main.tf
-    │   ├── outputs.tf
-    │   ├── scripts/
-    │   │   ├── backend-startup.sh
-    │   │   └── frontend-startup.sh
-    │   └── variables.tf
-    └── prod/
-        
+File hierarchy will be look like this once you completed the above step:
 
-6 directories, 12 files
-```
+![02](./assets/screenshot2.png)
 
 
