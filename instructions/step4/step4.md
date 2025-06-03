@@ -1,5 +1,3 @@
-# 4.0 🧪 Deploy Dev Environment for the HelloWorld Multi-Tier Application. 
-
 Now that we have our core Network and Compute modules (our robust "LEGO blocks" or "templates"), the process of deploying different environments becomes incredibly efficient.
 
 Instead of rewriting infrastructure code for each environment, we simply need to:
