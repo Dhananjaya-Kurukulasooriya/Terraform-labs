@@ -216,6 +216,7 @@ Now, for your dev environments, you simply call these modules, tweaking things l
     ```
     ![04](./assets/screenshot6.png)
     ---
+    The `outputs.tf` file in Terraform is used to define output values. These outputs serve as a way to expose specific pieces of information about the infrastructure that Terraform has provisioned. Think of them as the "return values" of your Terraform configuration.
 
     Once you complete all the 3 steps your current working directory should look like this.
 
@@ -225,7 +226,7 @@ Now we have the LEGO block to create all required Compute resources in Dev envir
 
 ---
 
-5. Open `main.tf` configuration file under (modules/network) and add the following code:
+5. Let's define the Network Module. Open `main.tf` configuration file under (modules/network/main.tf) and add the following code:
 
     ```bash
     # ========================================
